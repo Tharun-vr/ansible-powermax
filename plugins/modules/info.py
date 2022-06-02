@@ -176,7 +176,7 @@ EXAMPLES = r'''
     filters:
       - filter_key: "tdev"
         filter_operator: "equal"
-        filter_value: "True"
+        filter_value: "False"
       - filter_key: "cap_gb"
         filter_operator: "equal"
         filter_value: "5"
