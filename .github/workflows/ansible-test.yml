@@ -80,7 +80,7 @@ jobs:
           if [ -f /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/requirements.txt ]; then pip install -r /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/requirements.txt; fi
 
 
-- name: Run Unit tests using ansible-test
+      - name: Run Unit tests using ansible-test
         run: ansible-test units -v --color --python ${{ matrix.python-version }} --coverage
         working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/powermax
 
