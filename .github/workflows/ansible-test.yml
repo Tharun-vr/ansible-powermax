@@ -47,13 +47,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8, 3.9, 3.10]
+        python-version: [3.8, 3.9]
         ansible-version: [stable-2.12]
-        exclude:
-          - ansible-version: devel
-            python-version: 2.7
-          - ansible-version: stable-2.11
-            python-version: 2.7
 
     steps:
       - name: Set up Python ${{ matrix.python-version }}
@@ -73,10 +68,6 @@ jobs:
       - name: Setup Unit test Pre-requisites
         run: |
           ansible-galaxy collection install .cache/collection-tarballs/*.tar.gz
-          git clone https://github.com/ansible/ansible.git
-          cp -rf ansible/test/units/compat /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/unit/
-          cp -rf ansible/test/units/modules/utils.py /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/unit/plugins/modules/
-          sed -i 's/units/ansible_collections.dellemc.powermax.tests.unit/' /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/unit/plugins/modules/utils.py
           if [ -f /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/requirements.txt ]; then pip install -r /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/requirements.txt; fi
 
 
