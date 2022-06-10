@@ -35,7 +35,6 @@ jobs:
           name: collection
           path: .cache/collection-tarballs
 
-###
 #Unit tests (OPTIONAL)
 #
 #https://docs.ansible.com/ansible/latest/dev_guide/testing_units.html
@@ -48,6 +47,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.8, 3.9]
+        ansible-version: [ stable- 2.11, stable-2.12, stable-2.13]
 
     steps:
       - name: Set up Python ${{ matrix.python-version }}
@@ -69,10 +69,9 @@ jobs:
           ansible-galaxy collection install .cache/collection-tarballs/*.tar.gz
           if [ -f /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/requirements.txt ]; then pip install -r /home/runner/.ansible/collections/ansible_collections/dellemc/powermax/tests/requirements.txt; fi
 
-
-     - name: Run Unit tests using ansible-test
-       run: ansible-test units -v --color --python ${{ matrix.python-version }} --coverage
-       working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/powermax
+      - name: Run Unit tests using ansible-test
+        run: ansible-test units -v --color --python ${{ matrix.python-version }} --coverage
+        working-directory: /home/runner/.ansible/collections/ansible_collections/dellemc/powermax
 
 ###
 # Sanity tests (REQUIRED)
